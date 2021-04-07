@@ -1,0 +1,17 @@
+export const Colors = {
+	WHITE: '#FFFFFF',
+	BACKGROUND: '#F5F6FD',
+	LIGHT_GRAY: '#CECFD1',
+	DIMGRAY: '#7C7F84',
+	DARK: '#303778',
+	BLUE: '#3343E0',
+	PINK: '#DD4784',
+	SUCCESS: '#5AC796',
+	WARNING: '#E4C94A',
+	DANGER: '#E53333',
+}
+
+export const Fonts = {
+	REGULAR: 500,
+	SEMI_BOLD: 600,
+}
