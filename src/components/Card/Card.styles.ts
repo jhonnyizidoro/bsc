@@ -25,9 +25,9 @@ const getCardWrapperStyles = ({ columns }: CardWrapperStyles) => css`
 	}
 
 	// Remove last row padding-bottom
-	&:nth-last-child(-n + ${columns}) {
-		padding-bottom: 0;
-	}
+	// &:nth-last-child(-n + ${columns}) {
+	// 	padding-bottom: 0;
+	// }
 `
 
 export const CardWrapper = styled.div<CardWrapperStyles>`

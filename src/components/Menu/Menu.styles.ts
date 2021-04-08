@@ -12,6 +12,7 @@ export const MenuLink = styled(NavLink)`
 	font-size: 1.1rem;
 	font-weight: ${Fonts.SEMI_BOLD};
 	padding: 10px 30px;
+	white-space: nowrap;
 
 	svg {
 		fill: ${Colors.DARK};
