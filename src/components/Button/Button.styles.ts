@@ -25,9 +25,15 @@ const getButtonStylesByContent = ({ hasText }: ButtonStyles) => {
 			color: ${Colors.WHITE};
 			font-weight: ${Fonts.SEMI_BOLD};
 			padding: 13px 30px;
+
+			svg {
+				margin-left: 20px;
+			}
 		`
 	} else {
-		return css``
+		return css`
+			padding: 13px;
+		`
 	}
 }
 
@@ -42,7 +48,7 @@ export const ButtonElement = styled.button<ButtonStyles>`
 
 	svg {
 		fill: ${Colors.WHITE};
-		margin-left: 20px;
+		height: 15px;
 		width: 15px;
 	}
 `

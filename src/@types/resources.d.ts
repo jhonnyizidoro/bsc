@@ -9,3 +9,7 @@ interface User extends DefaultResource {
 	login: string
 	profile: 'admin' | 'user' | 'ghost'
 }
+
+interface Prospect extends DefaultResource {
+	name: string
+}
