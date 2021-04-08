@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import { SelectOptions } from '../../util/select-options'
+import { ResourceArray } from '../../util/resource-array'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -14,6 +15,7 @@ import Table from '../../components/Table'
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
 
 import { SignaturePageForm } from './SignaturePage.styles'
+import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg'
 
 interface SignaturePageParams {
 	id: string
@@ -22,11 +24,12 @@ interface SignaturePageParams {
 const SignaturePage: FC = () => {
 	const [signature, setSignature] = useState<Signature>()
 	const { id } = useParams<SignaturePageParams>()
-	const { get } = useApi()
+	const { get, post } = useApi()
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<SignatureValuePayload>()
 
@@ -39,7 +42,18 @@ const SignaturePage: FC = () => {
 	}, [get, id])
 
 	const insertSignatureValue = handleSubmit(async payload => {
-		console.log(payload)
+		const inserted = await post<SignatureValue, SignatureValuePayload>(
+			'signature-values',
+			{
+				...payload,
+				signatureId: signature?.id as string,
+			}
+		)
+		if (inserted) {
+			const values = ResourceArray.add(inserted, signature?.values || [])
+			setSignature({ ...(signature as Signature), values })
+			reset()
+		}
 	})
 
 	return (
@@ -61,7 +75,7 @@ const SignaturePage: FC = () => {
 					label="Dia"
 					error={errors.day?.message}
 					placeholder="Selecione uma dia"
-					options={SelectOptions.frequency()}
+					options={SelectOptions.day()}
 					{...register('day', { required: 'Selecione um valor' })}
 				/>
 				<Select
@@ -69,7 +83,7 @@ const SignaturePage: FC = () => {
 					label="Mês"
 					error={errors.month?.message}
 					placeholder="Selecione um mes"
-					options={SelectOptions.frequency()}
+					options={SelectOptions.month()}
 					{...register('month', { required: 'Selecione um valor' })}
 				/>
 				<Select
@@ -77,7 +91,7 @@ const SignaturePage: FC = () => {
 					label="Ano"
 					error={errors.year?.message}
 					placeholder="Selecione um ano"
-					options={SelectOptions.frequency()}
+					options={SelectOptions.year()}
 					{...register('year', { required: 'Selecione um valor' })}
 				/>
 				<Button
@@ -89,13 +103,21 @@ const SignaturePage: FC = () => {
 					Adicionar
 				</Button>
 			</SignaturePageForm>
-			<Table heads={['Valor', 'Dia', 'Mês', 'Ano']}>
+			<Table heads={['Valor', 'Dia', 'Mês', 'Ano', 'Acões']}>
 				{signature?.values.map(({ id, day, month, year, value }) => (
 					<tr key={id}>
 						<td>{value}</td>
 						<td>{day}</td>
 						<td>{month}</td>
 						<td>{year}</td>
+						<td>
+							<Button
+								icon={MinusIcon}
+								aria-label="Remover item"
+								type="button"
+								backgroundColor="blue"
+							/>
+						</td>
 					</tr>
 				))}
 			</Table>
