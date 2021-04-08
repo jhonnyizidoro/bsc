@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
+import { ResourceArray } from '../../util/resource-array'
 
 import MainLayout from '../../Layouts/Main'
 import Title from '../../components/Title'
@@ -17,7 +18,7 @@ const ProspectsPage: FC = () => {
 	const [prospects, setProspects] = useState<Prospect[]>([])
 	const [prospect, setProspect] = useState<Prospect | null>()
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-	const { get } = useApi()
+	const { get, post, put } = useApi()
 
 	const {
 		register,
@@ -46,14 +47,24 @@ const ProspectsPage: FC = () => {
 	}, [reset])
 
 	const insertProspect = handleSubmit(async payload => {
-		console.log(payload)
+		const inserted = await post<Prospect, ProspectPayload>('prospects', payload)
+		if (inserted) {
+			setProspects(ResourceArray.add(inserted, prospects))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	const updateProspect = handleSubmit(async payload => {
-		console.log({
-			...prospect,
-			...payload,
-		})
+		const updated = await put<Prospect, ProspectPayload>(
+			`prospects/${prospect?.id}`,
+			payload
+		)
+		if (updated) {
+			setProspects(ResourceArray.update(updated, prospects))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	return (

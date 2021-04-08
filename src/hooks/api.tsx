@@ -7,6 +7,7 @@ const ENDPOINT = 'http://localhost:2500/'
 interface UseApi {
 	get: <T>(route: string) => Promise<T | undefined>
 	post: <T, U>(route: string, body: U) => Promise<T | undefined>
+	put: <T, U>(route: string, body: U) => Promise<T | undefined>
 }
 
 export const useApi = (): UseApi => {
@@ -57,5 +58,12 @@ export const useApi = (): UseApi => {
 		[sendRequestToApi]
 	)
 
-	return { get, post }
+	const put = useCallback(
+		async <T, U>(route: string, body: U): Promise<T | undefined> => {
+			return await sendRequestToApi<T, U>('PUT', route, body)
+		},
+		[sendRequestToApi]
+	)
+
+	return { get, post, put }
 }
