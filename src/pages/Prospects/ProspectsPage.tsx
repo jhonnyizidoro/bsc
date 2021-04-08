@@ -1,13 +1,23 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { useApi } from '../../hooks/api'
+import { useForm } from 'react-hook-form'
 
-import MainLayout from '../../Layouts/MainLayout'
+import MainLayout from '../../Layouts/Main'
 import Title from '../../components/Title'
 import Grid from '../../components/Grid'
 import Card from '../../components/Card'
+import Modal from '../../components/Modal'
+import Input from '../../components/Input/Input'
+import Button from '../../components/Button'
+import SubmitButton from '../../components/SubmitButton/SubmitButton'
+
+import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
 
 const ProspectsPage: FC = () => {
 	const [prospects, setProspects] = useState<Prospect[]>([])
+	const [prospect, setProspect] = useState<Prospect | null>()
+	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+	const { register, handleSubmit, reset } = useForm<Prospect>()
 	const { get } = useApi()
 
 	useEffect(() => {
@@ -18,20 +28,70 @@ const ProspectsPage: FC = () => {
 		})
 	}, [get])
 
+	const openModal = useCallback((prospect: Prospect | null) => {
+		setProspect(prospect)
+		setModalIsOpen(true)
+	}, [])
+
+	const closeModal = useCallback(() => {
+		setProspect(null)
+		setModalIsOpen(false)
+		reset()
+	}, [reset])
+
+	const insertProspect = handleSubmit(async payload => {
+		console.log(payload)
+	})
+
+	const updateProspect = handleSubmit(async payload => {
+		console.log({
+			...prospect,
+			...payload,
+		})
+	})
+
 	return (
 		<MainLayout>
-			<Title title="Perspectivas" />
+			<Title title="Perspectivas">
+				<Button
+					backgroundColor="blue"
+					type="button"
+					icon={PlusIcon}
+					aria-label="Adicionar nova perspectiva"
+					onClick={() => openModal(null)}
+				>
+					Adicionar
+				</Button>
+			</Title>
 			<Grid>
-				{prospects.map(({ id, name }) => (
+				{prospects.map(prospect => (
 					<Card
-						key={id}
+						key={prospect.id}
 						columns={3}
 						onDelete={() => null}
-						onEdit={() => null}
-						title={name}
+						onEdit={() => openModal(prospect)}
+						title={prospect.name}
 					/>
 				))}
 			</Grid>
+
+			{modalIsOpen && (
+				<Modal title="Adicionar perspectiva" onClose={closeModal} isOpen={modalIsOpen}>
+					<form onSubmit={prospect ? updateProspect : insertProspect}>
+						<Input
+							id="name"
+							label="Nome da perspectiva"
+							type="text"
+							inputMode="text"
+							placeholder="Cliente"
+							autoComplete="on"
+							defaultValue={prospect?.name}
+							{...register('name')}
+						/>
+						<SubmitButton>Adicionar</SubmitButton>
+					</form>
+				</Modal>
+			)}
 		</MainLayout>
 	)
 }
