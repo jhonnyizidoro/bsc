@@ -9,6 +9,7 @@ interface InputProps {
 	id: string
 	name: string
 	label: string
+	error?: string
 	type: InputType
 	placeholder: string
 	inputMode: InputMode
@@ -19,11 +20,13 @@ interface InputProps {
 }
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (props, ref) => {
-	const { id, label, ...otherProps } = props
+	const { id, label, error, ...otherProps } = props
 
 	return (
 		<Fieldset>
-			<Label htmlFor={id}>{label}</Label>
+			<Label htmlFor={id} error={error}>
+				{label}
+			</Label>
 			<InputElement id={id} ref={ref} {...otherProps} />
 		</Fieldset>
 	)

@@ -10,20 +10,25 @@ import Input from '../../components/Input/Input'
 import SubmitButton from '../../components/SubmitButton/SubmitButton'
 
 const LoginPage: FC = () => {
-	const { register, handleSubmit } = useForm<LoginPayload>()
-	const { login } = useGlobalContext()
+	const { saveSession } = useGlobalContext()
 	const { post } = useApi()
 	const { push } = useHistory()
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<LoginPayload>()
 
 	const onSubmit = useCallback(
 		async payload => {
 			const session = await post<LoginResponse, LoginPayload>('login', payload)
 			if (session) {
-				login(session)
+				saveSession(session)
 				push('/prospects')
 			}
 		},
-		[login, post, push]
+		[saveSession, post, push]
 	)
 
 	return (
@@ -32,12 +37,13 @@ const LoginPage: FC = () => {
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						id="login"
-						label="Login"
 						type="text"
+						label="Login"
 						inputMode="text"
-						placeholder="joao.silva"
 						autoComplete="username"
-						{...register('login')}
+						placeholder="joao.silva"
+						error={errors.login?.message}
+						{...register('login', { required: 'Preencha esse campo' })}
 					/>
 					<Input
 						id="password"
@@ -46,7 +52,8 @@ const LoginPage: FC = () => {
 						inputMode="text"
 						placeholder="Sua senha"
 						autoComplete="current-password"
-						{...register('password')}
+						error={errors.password?.message}
+						{...register('password', { required: 'Preencha esse campo' })}
 					/>
 					<SubmitButton>Login</SubmitButton>
 				</form>

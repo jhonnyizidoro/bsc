@@ -17,8 +17,14 @@ const ProspectsPage: FC = () => {
 	const [prospects, setProspects] = useState<Prospect[]>([])
 	const [prospect, setProspect] = useState<Prospect | null>()
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-	const { register, handleSubmit, reset } = useForm<Prospect>()
 	const { get } = useApi()
+
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<Prospect>()
 
 	useEffect(() => {
 		get<Prospect[]>('prospects').then(data => {
@@ -80,13 +86,14 @@ const ProspectsPage: FC = () => {
 					<form onSubmit={prospect ? updateProspect : insertProspect}>
 						<Input
 							id="name"
-							label="Nome da perspectiva"
 							type="text"
 							inputMode="text"
-							placeholder="Cliente"
 							autoComplete="on"
+							placeholder="Cliente"
+							label="Nome da perspectiva"
+							error={errors.name?.message}
 							defaultValue={prospect?.name}
-							{...register('name')}
+							{...register('name', { required: 'Preencha esse campo' })}
 						/>
 						<SubmitButton>Adicionar</SubmitButton>
 					</form>
