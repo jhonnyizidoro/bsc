@@ -20,7 +20,7 @@ export const ModalElement = styled.div`
 	border-radius: 22px;
 	box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.15);
 	max-height: 100%;
-	min-width: 600px;
+	min-width: 650px;
 	overflow: auto;
 	padding: 30px;
 	position: relative;

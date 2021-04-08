@@ -103,7 +103,7 @@ const SignaturePage: FC = () => {
 					Adicionar
 				</Button>
 			</SignaturePageForm>
-			<Table heads={['Valor', 'Dia', 'Mês', 'Ano', 'Acões']}>
+			<Table heads={['Valor', 'Dia', 'Mês', 'Ano', 'Ações']}>
 				{signature?.values.map(({ id, day, month, year, value }) => (
 					<tr key={id}>
 						<td>{value}</td>
