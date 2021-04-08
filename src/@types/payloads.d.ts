@@ -43,3 +43,11 @@ interface CompanyPayload {
 	vision: string
 	values: string
 }
+
+interface UserPayload {
+	name: string
+	login: string
+	password: string
+	profile: ProfileTypes
+	companyId: string
+}

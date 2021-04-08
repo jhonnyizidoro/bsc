@@ -4,16 +4,12 @@ type TargetTypes = 'percentage' | 'currency' | 'value'
 
 type FrequencyTypes = 'yearly' | 'monthly' | 'daily'
 
+type ProfileTypes = 'admin' | 'user' | 'ghost'
+
 interface DefaultResource {
 	id: string
 	createdAt: string
 	updatedAt: string
-}
-
-interface User extends DefaultResource {
-	name: string
-	login: string
-	profile: 'admin' | 'user' | 'ghost'
 }
 
 interface Prospect extends DefaultResource {
@@ -55,4 +51,12 @@ interface Company extends DefaultResource {
 	mission: string
 	vision: string
 	values: string
+}
+
+interface User extends DefaultResource {
+	name: string
+	login: string
+	password?: string
+	profile: ProfileTypes
+	company: Company
 }

@@ -8,6 +8,7 @@ import IndicatorsPage from './pages/Indicators'
 import SignaturesPage from './pages/Signatures'
 import SignaturePage from './pages/Signature'
 import CompaniesPage from './pages/Companies'
+import UsersPage from './pages/Users'
 
 const App: FC = () => (
 	<Switch>
@@ -18,6 +19,7 @@ const App: FC = () => (
 		<Route component={SignaturesPage} exact path="/signatures" />
 		<Route component={SignaturePage} exact path="/signature/:id" />
 		<Route component={CompaniesPage} exact path="/companies" />
+		<Route component={UsersPage} exact path="/users" />
 	</Switch>
 )
 

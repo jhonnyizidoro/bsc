@@ -9,6 +9,9 @@ const goalOptions = (goals: Goal[]): SelectOption[] =>
 const indicatorOptions = (indicators: Indicator[]): SelectOption[] =>
 	indicators.map(({ id, name }) => ({ value: id, label: name }))
 
+const companyOptions = (companies: Company[]): SelectOption[] =>
+	companies.map(({ id, name }) => ({ value: id, label: name }))
+
 const polarityOptions = (): SelectOption[] => [
 	{ value: 'positive', label: 'Positiva' },
 	{ value: 'negative', label: 'Negativa' },
@@ -24,6 +27,12 @@ const frequencyOptions = (): SelectOption[] => [
 	{ value: 'yearly', label: 'Anual' },
 	{ value: 'monthly', label: 'Mensal' },
 	{ value: 'daily', label: 'Diária' },
+]
+
+const profileOptions = (): SelectOption[] => [
+	{ value: 'admin', label: 'Administrador' },
+	{ value: 'user', label: 'Usuário' },
+	{ value: 'ghost', label: 'Visualização' },
 ]
 
 const dayOptions = (): SelectOption[] => {
@@ -54,9 +63,11 @@ export const SelectOptions = {
 	prospect: prospectOptions,
 	goal: goalOptions,
 	indicator: indicatorOptions,
+	company: companyOptions,
 	polarity: polarityOptions,
 	targetType: targetTypeOptions,
 	frequency: frequencyOptions,
+	profile: profileOptions,
 	day: dayOptions,
 	month: monthOptions,
 	year: yearOptions,
