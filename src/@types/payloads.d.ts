@@ -36,3 +36,10 @@ interface SignatureValuePayload {
 	year: string
 	signatureId: string
 }
+
+interface CompanyPayload {
+	name: string
+	mission: string
+	vision: string
+	values: string
+}

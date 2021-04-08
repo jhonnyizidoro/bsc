@@ -49,3 +49,10 @@ interface Signature extends DefaultResource {
 	frequency: FrequencyTypes
 	values: SignatureValue[]
 }
+
+interface Company extends DefaultResource {
+	name: string
+	mission: string
+	vision: string
+	values: string
+}

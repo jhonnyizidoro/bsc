@@ -7,6 +7,7 @@ import GoalsPage from './pages/Goals'
 import IndicatorsPage from './pages/Indicators'
 import SignaturesPage from './pages/Signatures'
 import SignaturePage from './pages/Signature'
+import CompaniesPage from './pages/Companies'
 
 const App: FC = () => (
 	<Switch>
@@ -16,6 +17,7 @@ const App: FC = () => (
 		<Route component={IndicatorsPage} exact path="/indicators" />
 		<Route component={SignaturesPage} exact path="/signatures" />
 		<Route component={SignaturePage} exact path="/signature/:id" />
+		<Route component={CompaniesPage} exact path="/companies" />
 	</Switch>
 )
 
