@@ -13,3 +13,13 @@ interface User extends DefaultResource {
 interface Prospect extends DefaultResource {
 	name: string
 }
+
+interface GoalPredecessor extends DefaultResource {
+	name: string
+}
+
+interface Goal extends DefaultResource {
+	name: string
+	prospect: Prospect
+	predecessor?: GoalPredecessor
+}
