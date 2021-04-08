@@ -24,7 +24,7 @@ const ProspectsPage: FC = () => {
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<Prospect>()
+	} = useForm<ProspectPayload>()
 
 	useEffect(() => {
 		get<Prospect[]>('prospects').then(data => {

@@ -27,6 +27,7 @@ const GlobalStyles = createGlobalStyle`
   body,
   input,
   textarea,
+  select,
   button {
     color: ${Colors.DIMGRAY};
     font-family: 'Proxima Nova', sans-serif;

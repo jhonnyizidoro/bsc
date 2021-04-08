@@ -10,6 +10,7 @@ import Modal from '../../components/Modal'
 import Input from '../../components/Input/Input'
 import Button from '../../components/Button'
 import SubmitButton from '../../components/SubmitButton/SubmitButton'
+import Select from '../../components/Select/Select'
 
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
 
@@ -25,7 +26,7 @@ const GoalsPage: FC = () => {
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<Goal>()
+	} = useForm<GoalPayload>()
 
 	useEffect(() => {
 		get<Prospect[]>('prospects').then(data => {
@@ -97,9 +98,24 @@ const GoalsPage: FC = () => {
 							autoComplete="on"
 							placeholder="Cliente"
 							label="Nome do objetivo"
-							error={errors.name?.message}
 							defaultValue={goal?.name}
+							error={errors.name?.message}
 							{...register('name', { required: 'Preencha esse campo' })}
+						/>
+						<Select
+							id="prospectId"
+							label="Perspectiva"
+							defaultValue={goal?.prospect.id}
+							error={errors.prospectId?.message}
+							{...register('prospectId', { required: 'Selecione um valor' })}
+							options={prospects.map(({ id, name }) => ({ value: id, label: name }))}
+						/>
+						<Select
+							id="predecessorId"
+							label="Predecessor"
+							defaultValue={goal?.predecessor?.id}
+							{...register('predecessorId')}
+							options={goals.map(({ id, name }) => ({ value: id, label: name }))}
 						/>
 						<SubmitButton>Adicionar</SubmitButton>
 					</form>
