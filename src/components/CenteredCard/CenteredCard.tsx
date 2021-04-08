@@ -1,11 +1,14 @@
 import { FC } from 'react'
 
-import { CenteredCardWrapper, CenteredCardElement } from './CenteredCard.styles'
+import Logo from '../../assets/images/logo.svg'
+
+import { CenteredCardElement, CenteredCardImage } from './CenteredCard.styles'
 
 const CenteredCard: FC = ({ children }) => (
-	<CenteredCardWrapper>
-		<CenteredCardElement>{children}</CenteredCardElement>
-	</CenteredCardWrapper>
+	<CenteredCardElement>
+		<CenteredCardImage src={Logo} alt="Logo BSC" />
+		{children}
+	</CenteredCardElement>
 )
 
 export default CenteredCard
