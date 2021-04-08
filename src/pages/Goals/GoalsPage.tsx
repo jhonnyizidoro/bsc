@@ -14,13 +14,14 @@ import SubmitButton from '../../components/SubmitButton/SubmitButton'
 import Select from '../../components/Select/Select'
 
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
+import { ResourceArray } from '../../util/resource-array'
 
 const GoalsPage: FC = () => {
 	const [prospects, setProspects] = useState<Prospect[]>([])
 	const [goals, setGoals] = useState<Goal[]>([])
 	const [goal, setGoal] = useState<Goal | null>()
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-	const { get } = useApi()
+	const { get, post, put } = useApi()
 
 	const {
 		register,
@@ -54,14 +55,21 @@ const GoalsPage: FC = () => {
 	}, [reset])
 
 	const insertGoal = handleSubmit(async payload => {
-		console.log(payload)
+		const inserted = await post<Goal, GoalPayload>('goals', payload)
+		if (inserted) {
+			setGoals(ResourceArray.add(inserted, goals))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	const updateGoal = handleSubmit(async payload => {
-		console.log({
-			...goal,
-			...payload,
-		})
+		const updated = await put<Goal, GoalPayload>(`goals/${goal?.id}`, payload)
+		if (updated) {
+			setGoals(ResourceArray.update(updated, goals))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	return (
@@ -127,7 +135,7 @@ const GoalsPage: FC = () => {
 							{...register('predecessorId')}
 							placeholder="Selecione um objetivo predecessor"
 						/>
-						<SubmitButton>Adicionar</SubmitButton>
+						<SubmitButton>Salvar</SubmitButton>
 					</form>
 				</Modal>
 			)}

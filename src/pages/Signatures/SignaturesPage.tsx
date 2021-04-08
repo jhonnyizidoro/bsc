@@ -115,7 +115,7 @@ const SignaturesPage: FC = () => {
 							placeholder="Selecione uma frequência"
 							{...register('frequency', { required: 'Selecione um valor' })}
 						/>
-						<SubmitButton>Adicionar</SubmitButton>
+						<SubmitButton>Salvar</SubmitButton>
 					</form>
 				</Modal>
 			)}

@@ -2,7 +2,7 @@ export const addToResourceArray = <T extends DefaultResource>(
 	resource: T,
 	resources: T[]
 ): T[] => {
-	return [resource, ...resources]
+	return [...resources, resource]
 }
 
 export const removeFromResourceArray = <T extends DefaultResource>(

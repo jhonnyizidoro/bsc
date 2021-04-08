@@ -106,7 +106,7 @@ const ProspectsPage: FC = () => {
 							defaultValue={prospect?.name}
 							{...register('name', { required: 'Preencha esse campo' })}
 						/>
-						<SubmitButton>Adicionar</SubmitButton>
+						<SubmitButton>Salvar</SubmitButton>
 					</form>
 				</Modal>
 			)}
