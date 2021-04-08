@@ -23,3 +23,8 @@ interface IndicatorPayload {
 	formula: string
 	goalId: number
 }
+
+interface SignaturePayload {
+	name: string
+	frequency: FrequencyTypes
+}

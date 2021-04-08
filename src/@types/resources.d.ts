@@ -36,3 +36,14 @@ interface Indicator extends DefaultResource {
 	formula: string
 	goal: Goal
 }
+
+interface SignatureValue extends DefaultResource {
+	value: number
+	date: string
+}
+
+interface Signature extends DefaultResource {
+	name: string
+	frequency: FrequencyTypes
+	values: SignatureValue[]
+}
