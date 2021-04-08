@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react'
+import { SelectOptions } from '../../util/select-options'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
 
@@ -111,15 +112,17 @@ const GoalsPage: FC = () => {
 							label="Perspectiva"
 							defaultValue={goal?.prospect.id}
 							error={errors.prospectId?.message}
+							placeholder="Selecione uma perspectiva"
+							options={SelectOptions.prospect(prospects)}
 							{...register('prospectId', { required: 'Selecione um valor' })}
-							options={prospects.map(({ id, name }) => ({ value: id, label: name }))}
 						/>
 						<Select
 							id="predecessorId"
 							label="Predecessor"
+							options={SelectOptions.goal(goals)}
 							defaultValue={goal?.predecessor?.id}
 							{...register('predecessorId')}
-							options={goals.map(({ id, name }) => ({ value: id, label: name }))}
+							placeholder="Selecione um objetivo predecessor"
 						/>
 						<SubmitButton>Adicionar</SubmitButton>
 					</form>

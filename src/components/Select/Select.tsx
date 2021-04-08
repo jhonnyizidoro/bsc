@@ -17,6 +17,7 @@ interface SelectProps {
 	name: string
 	label: string
 	error?: string
+	placeholder: string
 	defaultValue?: string
 	options: SelectOption[]
 	onBlur: (event: FocusEvent<HTMLSelectElement>) => void
@@ -24,7 +25,7 @@ interface SelectProps {
 }
 
 const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (props, ref) => {
-	const { id, label, error, options, ...otherProps } = props
+	const { id, label, error, options, placeholder, ...otherProps } = props
 
 	return (
 		<Fieldset>
@@ -32,7 +33,7 @@ const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (props,
 				{label}
 			</Label>
 			<SelectElement id={id} ref={ref} {...otherProps}>
-				<option value="">Selecione uma opção</option>
+				<option value="">{placeholder}</option>
 				{options.map(({ value, label }) => (
 					<option key={value} value={value}>
 						{label}

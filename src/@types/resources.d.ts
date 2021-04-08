@@ -1,3 +1,9 @@
+type PolarityTypes = 'positive' | 'negative'
+
+type TargetTypes = 'percentage' | 'currency' | 'value'
+
+type FrequencyTypes = 'yearly' | 'monthly' | 'daily'
+
 interface DefaultResource {
 	id: string
 	createdAt: string
@@ -23,10 +29,10 @@ interface Goal extends DefaultResource {
 interface Indicator extends DefaultResource {
 	name: string
 	description: string
-	polarity: 'positive' | 'negative'
+	polarity: PolarityTypes
 	target: number
-	targetType: 'percentage' | 'currency' | 'value'
-	frequency: 'yearly' | 'monthly' | 'daily'
+	targetType: TargetTypes
+	frequency: FrequencyTypes
 	formula: string
 	goal: Goal
 }

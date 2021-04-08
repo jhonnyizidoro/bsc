@@ -18,7 +18,7 @@ import {
 
 interface CardFooterItem {
 	label: string
-	value: string
+	value: string | number
 }
 
 interface CardProps {

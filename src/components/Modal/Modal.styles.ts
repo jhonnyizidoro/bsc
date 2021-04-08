@@ -8,6 +8,7 @@ export const ModalWrapper = styled.div`
 	display: flex;
 	height: 100%;
 	justify-content: center;
+	padding: 15px 0;
 	position: fixed;
 	right: 0;
 	top: 0;
@@ -18,9 +19,25 @@ export const ModalElement = styled.div`
 	background: ${Colors.WHITE};
 	border-radius: 22px;
 	box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.15);
+	max-height: 100%;
 	min-width: 600px;
+	overflow: auto;
 	padding: 30px;
 	position: relative;
+
+	::-webkit-scrollbar {
+		width: 14px;
+	}
+
+	::-webkit-scrollbar-button {
+		height: 15px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: ${Colors.LIGHT_GRAY};
+		border: 4px solid ${Colors.WHITE};
+		border-radius: 100px;
+	}
 
 	fieldset {
 		margin-bottom: 25px;

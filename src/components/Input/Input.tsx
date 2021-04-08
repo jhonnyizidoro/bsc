@@ -13,7 +13,7 @@ interface InputProps {
 	type: InputType
 	placeholder: string
 	inputMode: InputMode
-	defaultValue?: string
+	defaultValue?: string | number
 	autoComplete: InputAutoComplete
 	onBlur: (event: ChangeEvent<HTMLInputElement>) => void
 	onChange: (event: FocusEvent<HTMLInputElement>) => void

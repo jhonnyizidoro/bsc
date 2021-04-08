@@ -12,3 +12,14 @@ interface GoalPayload {
 	prospectId: string
 	predecessorId: string
 }
+
+interface IndicatorPayload {
+	name: string
+	description: string
+	polarity: PolarityTypes
+	target: number
+	targetType: TargetTypes
+	frequency: FrequencyTypes
+	formula: string
+	goalId: number
+}
