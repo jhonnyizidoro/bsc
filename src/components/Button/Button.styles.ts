@@ -24,7 +24,7 @@ const getButtonStylesByContent = ({ hasText }: ButtonStyles) => {
 			box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.06);
 			color: ${Colors.WHITE};
 			font-weight: ${Fonts.SEMI_BOLD};
-			padding: 13px 30px;
+			padding: 14px 30px;
 
 			svg {
 				margin-left: 20px;

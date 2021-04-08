@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import { SelectOptions } from '../../util/select-options'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import MainLayout from '../../Layouts/Main'
 import Title from '../../components/Title'
@@ -84,7 +85,8 @@ const SignaturesPage: FC = () => {
 							<strong>Periodicidade:</strong> {signature.frequency}
 						</div>
 						<div>
-							<strong>Valores:</strong> <span>inserir valores</span>
+							<strong>Valores: </strong>
+							<Link to={`/signature/${signature.id}`}>inserir valores</Link>
 						</div>
 					</Card>
 				))}
@@ -110,7 +112,7 @@ const SignaturesPage: FC = () => {
 							error={errors.frequency?.message}
 							defaultValue={signature?.frequency}
 							options={SelectOptions.frequency()}
-							placeholder="Selecione uam frequência"
+							placeholder="Selecione uma frequência"
 							{...register('frequency', { required: 'Selecione um valor' })}
 						/>
 						<SubmitButton>Adicionar</SubmitButton>

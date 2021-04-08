@@ -5,6 +5,7 @@ export const SelectElement = styled.select`
 	appearance: none;
 	border: 1px solid ${Colors.LIGHT_GRAY};
 	border-radius: 8px;
+	line-height: 1.15;
 	outline: 0;
 	padding: 14px;
 	width: 100%;

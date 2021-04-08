@@ -164,7 +164,7 @@ const IndicatorsPage: FC = () => {
 							error={errors.frequency?.message}
 							defaultValue={indicator?.frequency}
 							options={SelectOptions.frequency()}
-							placeholder="Selecione uam frequência"
+							placeholder="Selecione uma frequência"
 							{...register('frequency', { required: 'Selecione um valor' })}
 						/>
 						<SubmitButton>Adicionar</SubmitButton>

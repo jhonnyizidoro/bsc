@@ -28,3 +28,11 @@ interface SignaturePayload {
 	name: string
 	frequency: FrequencyTypes
 }
+
+interface SignatureValuePayload {
+	value: number
+	day: string
+	month: string
+	year: string
+	signatureId: string
+}
