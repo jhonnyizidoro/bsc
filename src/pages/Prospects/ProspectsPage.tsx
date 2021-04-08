@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react'
+import { ResourceArray } from '../../util/resource-array'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
-import { ResourceArray } from '../../util/resource-array'
 
 import MainLayout from '../../Layouts/Main'
 import Title from '../../components/Title'

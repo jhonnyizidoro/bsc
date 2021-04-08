@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 import { SelectOptions } from '../../util/select-options'
+import { ResourceArray } from '../../util/resource-array'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -20,7 +21,7 @@ const SignaturesPage: FC = () => {
 	const [signatures, setSignatures] = useState<Signature[]>([])
 	const [signature, setSignature] = useState<Signature | null>()
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-	const { get } = useApi()
+	const { get, post, put } = useApi()
 
 	const {
 		register,
@@ -49,14 +50,24 @@ const SignaturesPage: FC = () => {
 	}, [reset])
 
 	const insertSignature = handleSubmit(async payload => {
-		console.log(payload)
+		const inserted = await post<Signature, SignaturePayload>('signatures', payload)
+		if (inserted) {
+			setSignatures(ResourceArray.add(inserted, signatures))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	const updateSignature = handleSubmit(async payload => {
-		console.log({
-			...signature,
-			...payload,
-		})
+		const updated = await put<Signature, SignaturePayload>(
+			`signatures/${signature?.id}`,
+			payload
+		)
+		if (updated) {
+			setSignatures(ResourceArray.update(updated, signatures))
+			setModalIsOpen(false)
+			reset()
+		}
 	})
 
 	return (

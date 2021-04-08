@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useState } from 'react'
+import { ResourceArray } from '../../util/resource-array'
 import { SelectOptions } from '../../util/select-options'
 import { useApi } from '../../hooks/api'
 import { useForm } from 'react-hook-form'
@@ -14,7 +15,6 @@ import SubmitButton from '../../components/SubmitButton/SubmitButton'
 import Select from '../../components/Select/Select'
 
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
-import { ResourceArray } from '../../util/resource-array'
 
 const GoalsPage: FC = () => {
 	const [prospects, setProspects] = useState<Prospect[]>([])
