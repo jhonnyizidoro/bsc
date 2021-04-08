@@ -1,4 +1,4 @@
-import { ForwardRefRenderFunction, forwardRef } from 'react'
+import { ForwardRefRenderFunction, forwardRef, ChangeEvent, FocusEvent } from 'react'
 
 import Fieldset from '../Fieldset'
 import Label from '../Label'
@@ -14,33 +14,17 @@ interface InputProps {
 	inputMode: InputMode
 	defaultValue?: string
 	autoComplete: InputAutoComplete
+	onBlur: (event: ChangeEvent<HTMLInputElement>) => void
+	onChange: (event: FocusEvent<HTMLInputElement>) => void
 }
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (props, ref) => {
-	const {
-		id,
-		name,
-		label,
-		type,
-		placeholder,
-		inputMode,
-		autoComplete,
-		defaultValue,
-	} = props
+	const { id, label, ...otherProps } = props
 
 	return (
 		<Fieldset>
 			<Label htmlFor={id}>{label}</Label>
-			<InputElement
-				id={id}
-				ref={ref}
-				type={type}
-				name={name}
-				inputMode={inputMode}
-				placeholder={placeholder}
-				autoComplete={autoComplete}
-				defaultValue={defaultValue}
-			/>
+			<InputElement id={id} ref={ref} {...otherProps} />
 		</Fieldset>
 	)
 }

@@ -1,5 +1,8 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
+import { useApi } from '../../hooks/api'
+import { useGlobalContext } from '../../contexts/global'
+import { useHistory } from 'react-router-dom'
 
 import CenteredCard from '../../components/CenteredCard'
 import AuthLayout from '../../Layouts/Auth'
@@ -8,15 +11,25 @@ import SubmitButton from '../../components/SubmitButton/SubmitButton'
 
 const LoginPage: FC = () => {
 	const { register, handleSubmit } = useForm<LoginPayload>()
+	const { login } = useGlobalContext()
+	const { post } = useApi()
+	const { push } = useHistory()
 
-	const onSubmit = handleSubmit(async payload => {
-		console.log(payload)
-	})
+	const onSubmit = useCallback(
+		async payload => {
+			const session = await post<LoginResponse, LoginPayload>('login', payload)
+			if (session) {
+				login(session)
+				push('/prospects')
+			}
+		},
+		[login, post, push]
+	)
 
 	return (
 		<AuthLayout>
 			<CenteredCard>
-				<form onSubmit={onSubmit}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						id="login"
 						label="Login"

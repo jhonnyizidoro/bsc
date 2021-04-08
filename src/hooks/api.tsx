@@ -6,7 +6,7 @@ const ENDPOINT = 'http://localhost:2500/'
 
 interface UseApi {
 	get: <T>(route: string) => Promise<T | undefined>
-	post: <T>(route: string, body: BodyInit) => Promise<T | undefined>
+	post: <T, U>(route: string, body: U) => Promise<T | undefined>
 }
 
 export const useApi = (): UseApi => {
@@ -14,11 +14,7 @@ export const useApi = (): UseApi => {
 	const { push } = useHistory()
 
 	const sendRequestToApi = useCallback(
-		async <T,>(
-			method: 'GET' | 'POST' | 'PUT' | 'DELETE',
-			route: string,
-			body?: BodyInit
-		) => {
+		async <T, U>(method: 'GET' | 'POST' | 'PUT' | 'DELETE', route: string, body?: U) => {
 			try {
 				const init: RequestInit = {}
 				init.headers = {}
@@ -49,14 +45,14 @@ export const useApi = (): UseApi => {
 
 	const get = useCallback(
 		async <T,>(route: string): Promise<T | undefined> => {
-			return await sendRequestToApi<T>('GET', route)
+			return await sendRequestToApi<T, null>('GET', route)
 		},
 		[sendRequestToApi]
 	)
 
 	const post = useCallback(
-		async <T,>(route: string, body: BodyInit): Promise<T | undefined> => {
-			return await sendRequestToApi<T>('POST', route, body)
+		async <T, U>(route: string, body: U): Promise<T | undefined> => {
+			return await sendRequestToApi<T, U>('POST', route, body)
 		},
 		[sendRequestToApi]
 	)
