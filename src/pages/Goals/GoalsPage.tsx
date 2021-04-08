@@ -85,11 +85,14 @@ const GoalsPage: FC = () => {
 						onDelete={() => null}
 						onEdit={() => openModal(goal)}
 						title={goal.name}
-						footerItems={[
-							{ label: 'Predecessor', value: goal.predecessor?.name || 'Não tem' },
-							{ label: 'Perspectiva', value: goal.prospect.name },
-						]}
-					/>
+					>
+						<div>
+							<strong>Predecessor:</strong> {goal.predecessor?.name || 'Não tem'}
+						</div>
+						<div>
+							<strong>Perspectiva:</strong> {goal.prospect.name}
+						</div>
+					</Card>
 				))}
 			</Grid>
 

@@ -85,11 +85,14 @@ const IndicatorsPage: FC = () => {
 						onDelete={() => null}
 						onEdit={() => openModal(indicator)}
 						title={indicator.name}
-						footerItems={[
-							{ label: 'Polaridade', value: indicator.polarity },
-							{ label: 'Meta', value: indicator.target },
-						]}
-					/>
+					>
+						<div>
+							<strong>Polaridade:</strong> {indicator.polarity}
+						</div>
+						<div>
+							<strong>Meta:</strong> {indicator.target}
+						</div>
+					</Card>
 				))}
 			</Grid>
 

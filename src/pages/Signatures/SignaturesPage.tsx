@@ -79,11 +79,14 @@ const SignaturesPage: FC = () => {
 						onDelete={() => null}
 						onEdit={() => openModal(signature)}
 						title={signature.name}
-						footerItems={[
-							{ label: 'Periodicidade', value: signature.frequency },
-							{ label: 'Valores', value: 'inserir valores' },
-						]}
-					/>
+					>
+						<div>
+							<strong>Periodicidade:</strong> {signature.frequency}
+						</div>
+						<div>
+							<strong>Valores:</strong> <span>inserir valores</span>
+						</div>
+					</Card>
 				))}
 			</Grid>
 
