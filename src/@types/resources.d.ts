@@ -19,3 +19,14 @@ interface Goal extends DefaultResource {
 	prospect: Prospect
 	predecessor?: Goal
 }
+
+interface Indicator extends DefaultResource {
+	name: string
+	description: string
+	polarity: 'positive' | 'negative'
+	target: number
+	targetType: 'percentage' | 'currency' | 'value'
+	frequency: 'yearly' | 'monthly' | 'daily'
+	formula: string
+	goal: Goal
+}

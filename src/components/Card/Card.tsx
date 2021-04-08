@@ -11,16 +11,25 @@ import {
 	CardContent,
 	CardTitle,
 	CardButtons,
+	CardFooter,
+	CardFooterBlock,
+	CardFooterStrong,
 } from './Card.styles'
+
+interface CardFooterItem {
+	label: string
+	value: string
+}
 
 interface CardProps {
 	title: string
 	columns: number
 	onEdit: <T>(data: T) => void
 	onDelete: <T>(data: T) => void
+	footerItems?: CardFooterItem[]
 }
 
-const Card: FC<CardProps> = ({ title, columns, onEdit, onDelete }) => (
+const Card: FC<CardProps> = ({ title, columns, onEdit, onDelete, footerItems }) => (
 	<CardWrapper columns={columns}>
 		<CardElement>
 			<CardContent>
@@ -42,6 +51,15 @@ const Card: FC<CardProps> = ({ title, columns, onEdit, onDelete }) => (
 					/>
 				</CardButtons>
 			</CardContent>
+			{footerItems && (
+				<CardFooter>
+					{footerItems.map(({ label, value }) => (
+						<CardFooterBlock key={label}>
+							<CardFooterStrong>{label}</CardFooterStrong>: {value}
+						</CardFooterBlock>
+					))}
+				</CardFooter>
+			)}
 		</CardElement>
 	</CardWrapper>
 )

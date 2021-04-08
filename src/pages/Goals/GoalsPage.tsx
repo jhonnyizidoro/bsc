@@ -80,10 +80,14 @@ const GoalsPage: FC = () => {
 				{goals.map(goal => (
 					<Card
 						key={goal.id}
-						columns={3}
+						columns={2}
 						onDelete={() => null}
 						onEdit={() => openModal(goal)}
 						title={goal.name}
+						footerItems={[
+							{ label: 'Predecessor', value: goal.predecessor?.name || 'Não tem' },
+							{ label: 'Perspectiva', value: goal.prospect.name },
+						]}
 					/>
 				))}
 			</Grid>

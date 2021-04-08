@@ -32,7 +32,7 @@ const getButtonStylesByContent = ({ hasText }: ButtonStyles) => {
 		`
 	} else {
 		return css`
-			padding: 13px;
+			padding: 10px;
 		`
 	}
 }

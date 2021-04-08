@@ -64,3 +64,19 @@ export const CardButtons = styled.h2`
 		margin-bottom: 10px;
 	}
 `
+
+export const CardFooter = styled.div`
+	border-top: 1px solid ${Colors.LIGHT_GRAY};
+	margin-top: 20px;
+	padding-top: 20px;
+`
+
+export const CardFooterBlock = styled.div`
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+`
+
+export const CardFooterStrong = styled.strong`
+	font-weight: ${Fonts.SEMI_BOLD};
+`
