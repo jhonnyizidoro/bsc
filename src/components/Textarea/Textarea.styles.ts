@@ -4,6 +4,7 @@ import { Colors } from '../../assets/styles/variables'
 export const TextareaElement = styled.textarea`
 	border: 1px solid ${Colors.LIGHT_GRAY};
 	border-radius: 8px;
+	line-height: 1.5;
 	outline: 0;
 	padding: 13px;
 	width: 100%;

@@ -53,8 +53,7 @@ const SignaturesPage: FC = () => {
 		const inserted = await post<Signature, SignaturePayload>('signatures', payload)
 		if (inserted) {
 			setSignatures(ResourceArray.add(inserted, signatures))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -65,8 +64,7 @@ const SignaturesPage: FC = () => {
 		)
 		if (updated) {
 			setSignatures(ResourceArray.update(updated, signatures))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 

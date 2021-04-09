@@ -58,8 +58,7 @@ const GoalsPage: FC = () => {
 		const inserted = await post<Goal, GoalPayload>('goals', payload)
 		if (inserted) {
 			setGoals(ResourceArray.add(inserted, goals))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -67,8 +66,7 @@ const GoalsPage: FC = () => {
 		const updated = await put<Goal, GoalPayload>(`goals/${goal?.id}`, payload)
 		if (updated) {
 			setGoals(ResourceArray.update(updated, goals))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 

@@ -58,8 +58,7 @@ const UsersPage: FC = () => {
 		const inserted = await post<User, UserPayload>('users', payload)
 		if (inserted) {
 			setUsers(ResourceArray.add(inserted, users))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -67,8 +66,7 @@ const UsersPage: FC = () => {
 		const updated = await put<User, UserPayload>(`users/${user?.id}`, payload)
 		if (updated) {
 			setUsers(ResourceArray.update(updated, users))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 

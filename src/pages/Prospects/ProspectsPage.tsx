@@ -50,8 +50,7 @@ const ProspectsPage: FC = () => {
 		const inserted = await post<Prospect, ProspectPayload>('prospects', payload)
 		if (inserted) {
 			setProspects(ResourceArray.add(inserted, prospects))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -62,8 +61,7 @@ const ProspectsPage: FC = () => {
 		)
 		if (updated) {
 			setProspects(ResourceArray.update(updated, prospects))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 

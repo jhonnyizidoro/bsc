@@ -14,8 +14,10 @@ import Button from '../../components/Button'
 import SubmitButton from '../../components/SubmitButton/SubmitButton'
 import Select from '../../components/Select/Select'
 import InlineFieldset from '../../components/InlineFieldset'
+import Textarea from '../../components/Textarea/Textarea'
 
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus-sign.svg'
+import SignatureList from '../../components/SignatureList'
 
 const IndicatorsPage: FC = () => {
 	const [signatures, setSignatures] = useState<Signature[]>([])
@@ -23,6 +25,7 @@ const IndicatorsPage: FC = () => {
 	const [indicators, setIndicators] = useState<Indicator[]>([])
 	const [indicator, setIndicator] = useState<Indicator | null>()
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+	const [formulaModalIsOpen, setFormulaModalIsOpen] = useState<boolean>(false)
 	const { get, post, put } = useApi()
 
 	const {
@@ -30,6 +33,8 @@ const IndicatorsPage: FC = () => {
 		handleSubmit,
 		reset,
 		formState: { errors },
+		setValue,
+		getValues,
 	} = useForm<IndicatorPayload>()
 
 	useEffect(() => {
@@ -55,9 +60,20 @@ const IndicatorsPage: FC = () => {
 		setModalIsOpen(true)
 	}, [])
 
+	const openFormulaModal = useCallback((indicator: Indicator) => {
+		setIndicator(indicator)
+		setFormulaModalIsOpen(true)
+	}, [])
+
 	const closeModal = useCallback(() => {
 		setIndicator(null)
 		setModalIsOpen(false)
+		reset()
+	}, [reset])
+
+	const closeFormulaModal = useCallback(() => {
+		setIndicator(null)
+		setFormulaModalIsOpen(false)
 		reset()
 	}, [reset])
 
@@ -65,8 +81,7 @@ const IndicatorsPage: FC = () => {
 		const inserted = await post<Indicator, IndicatorPayload>('indicators', payload)
 		if (inserted) {
 			setIndicators(ResourceArray.add(inserted, indicators))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -77,10 +92,28 @@ const IndicatorsPage: FC = () => {
 		)
 		if (updated) {
 			setIndicators(ResourceArray.update(updated, indicators))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
+
+	const updateIndicatorFormula = handleSubmit(async payload => {
+		const updated = await put<Indicator, IndicatorPayload>(
+			`indicators/formula/${indicator?.id}`,
+			payload
+		)
+		if (updated) {
+			setIndicators(ResourceArray.update(updated, indicators))
+			closeFormulaModal()
+		}
+	})
+
+	const insertSignatureIdInFormula = useCallback(
+		id => {
+			const currentFormula = getValues('formula')
+			setValue('formula', `${currentFormula}$${id}`)
+		},
+		[getValues, setValue]
+	)
 
 	return (
 		<MainLayout>
@@ -104,6 +137,12 @@ const IndicatorsPage: FC = () => {
 						onEdit={() => openModal(indicator)}
 						title={indicator.name}
 					>
+						<div>
+							<strong>Formula:</strong>{' '}
+							<span onClick={() => openFormulaModal(indicator)}>
+								{indicator.formula ? 'editar fórmula' : 'inserir fórmula'}
+							</span>
+						</div>
 						<div>
 							<strong>Polaridade:</strong> {indicator.polarity}
 						</div>
@@ -192,6 +231,30 @@ const IndicatorsPage: FC = () => {
 								{...register('frequency', { required: 'Selecione um valor' })}
 							/>
 						</InlineFieldset>
+						<SubmitButton>Salvar</SubmitButton>
+					</form>
+				</Modal>
+			)}
+
+			{formulaModalIsOpen && (
+				<Modal
+					title="Inserir fórmula"
+					isOpen={formulaModalIsOpen}
+					onClose={closeFormulaModal}
+				>
+					<form onSubmit={updateIndicatorFormula}>
+						<Textarea
+							id="formula"
+							label="Fórmula"
+							placeholder="Fórmula"
+							error={errors.formula?.message}
+							defaultValue={indicator?.formula}
+							{...register('formula', { required: 'Preencha esse campo' })}
+						/>
+						<SignatureList
+							signatures={signatures}
+							onItemSelect={insertSignatureIdInFormula}
+						/>
 						<SubmitButton>Salvar</SubmitButton>
 					</form>
 				</Modal>

@@ -29,7 +29,7 @@ interface Indicator extends DefaultResource {
 	target: number
 	targetType: TargetTypes
 	frequency: FrequencyTypes
-	formula: string
+	formula?: string
 	goal: Goal
 }
 

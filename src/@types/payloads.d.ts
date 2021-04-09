@@ -20,6 +20,7 @@ interface IndicatorPayload {
 	target: number
 	targetType: TargetTypes
 	frequency: FrequencyTypes
+	formula: string
 	goalId: number
 }
 

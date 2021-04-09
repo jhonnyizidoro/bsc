@@ -78,7 +78,8 @@ export const CardFooter = styled.div`
 		font-weight: ${Fonts.SEMI_BOLD};
 	}
 
-	a {
+	a,
+	span {
 		cursor: pointer;
 		text-decoration: underline;
 	}

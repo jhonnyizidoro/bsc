@@ -50,8 +50,7 @@ const CompaniesPage: FC = () => {
 		const inserted = await post<Company, CompanyPayload>('companies', payload)
 		if (inserted) {
 			setCompanies(ResourceArray.add(inserted, companies))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
@@ -62,8 +61,7 @@ const CompaniesPage: FC = () => {
 		)
 		if (updated) {
 			setCompanies(ResourceArray.update(updated, companies))
-			setModalIsOpen(false)
-			reset()
+			closeModal()
 		}
 	})
 
