@@ -70,22 +70,26 @@ const SignaturePage: FC = () => {
 					error={errors.value?.message}
 					{...register('value', { required: 'Preencha esse campo' })}
 				/>
-				<Select
-					id="day"
-					label="Dia"
-					error={errors.day?.message}
-					placeholder="Selecione uma dia"
-					options={SelectOptions.day()}
-					{...register('day', { required: 'Selecione um valor' })}
-				/>
-				<Select
-					id="month"
-					label="Mês"
-					error={errors.month?.message}
-					placeholder="Selecione um mes"
-					options={SelectOptions.month()}
-					{...register('month', { required: 'Selecione um valor' })}
-				/>
+				{signature?.frequency === 'daily' && (
+					<Select
+						id="day"
+						label="Dia"
+						error={errors.day?.message}
+						placeholder="Selecione uma dia"
+						options={SelectOptions.day()}
+						{...register('day', { required: 'Selecione um valor' })}
+					/>
+				)}
+				{signature?.frequency.match(/monthly|daily/) && (
+					<Select
+						id="month"
+						label="Mês"
+						error={errors.month?.message}
+						placeholder="Selecione um mes"
+						options={SelectOptions.month()}
+						{...register('month', { required: 'Selecione um valor' })}
+					/>
+				)}
 				<Select
 					id="year"
 					label="Ano"
@@ -108,8 +112,8 @@ const SignaturePage: FC = () => {
 					<tr key={id}>
 						<td>{value}</td>
 						<td>{day}</td>
-						<td>{month}</td>
-						<td>{year}</td>
+						<td>{month || '-'}</td>
+						<td>{year || '-'}</td>
 						<td>
 							<Button
 								icon={MinusIcon}

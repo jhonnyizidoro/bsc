@@ -36,8 +36,8 @@ interface Indicator extends DefaultResource {
 interface SignatureValue extends DefaultResource {
 	value: number
 	day: string
-	month: string
-	year: string
+	month?: string
+	year?: string
 }
 
 interface Signature extends DefaultResource {
